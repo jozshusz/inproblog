@@ -10,7 +10,7 @@ body {
 }
 html{
 	min-height: 100%;
-	background: linear-gradient(rgb(117, 85, 85), rgb(59, 53, 53));
+	background: linear-gradient(rgb(151, 198, 219), rgb(176, 181, 184));
 }
 
 .menuNav{
@@ -76,7 +76,7 @@ html{
   clear: both;
 }
 
-.leftColumn{
+.leftColumnClass{
   float: left;
   width: 75%;
 }
@@ -90,6 +90,10 @@ html{
 .artBlock {
   background-color: rgb(151, 151, 151);
   padding: 20px;
+  margin-top: 20px;
+}
+
+.outBlock {
   margin-top: 20px;
 }
 
@@ -121,4 +125,17 @@ html{
 }
 .signTitle{
   margin-top: 70px;
+}
+
+.newStuffButton {
+  margin-top: 20px;
+  background-color: #6bb573; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
 }

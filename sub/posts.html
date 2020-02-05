@@ -2,6 +2,7 @@
 
 <html>
 <head>
+	<script src="../js/post_handler.js"></script>
 	<link rel="stylesheet" type="text/css" href="../css/homepage.css">
 	<title>
 		Posts
@@ -18,7 +19,7 @@
 	  <li class="menuItems" id="signInMenu"><a class="menuNames" href="signin.html">Sign in</a></li>
 	</ul>
 	<div class="row">
-		<div class="leftColumn">
+		<div id="leftColumnId" class="leftColumnClass">
 			<div class="artBlock">
 				<article class="articleStyle">
 					<p>Valami</p>
@@ -29,10 +30,8 @@
 					<p>Valami</p>
 				</article>
 			</div>
-			<div class="artBlock">
-				<article class="articleStyle">
-					<p>Valami</p>
-				</article>
+			<div class="outBlock">
+				<button class="newStuffButton" type="button" onclick="newPost()">New post</button>
 			</div>
 		</div>
 		<div class="rightColumn">

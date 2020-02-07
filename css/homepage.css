@@ -10,7 +10,7 @@ body {
 }
 html{
 	min-height: 100%;
-	background: linear-gradient(rgb(151, 198, 219), rgb(176, 181, 184));
+	background: linear-gradient(rgb(97, 100, 105), rgb(71, 91, 99));
 }
 
 .menuNav{
@@ -111,11 +111,12 @@ html{
 
 #fname{
   padding: 12px 20px;
-  margin: 8px 0;
+  margin: 25px 0;
   display: inline-block;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 4em;
   box-sizing: border-box;
+  width: 90%;
 }
 .imageStyle{
   display: block;
@@ -135,7 +136,32 @@ html{
   padding: 10px 24px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
   font-size: 16px;
   cursor: pointer;
+}
+.postHeader{
+  margin-top: 50px;
+  margin-left: 40px;
+  padding-top: 10px;
+  width : 96%;
+  height: 60px;
+  resize: none;
+  font-size: 30px;
+  font-family: "Verdana", Times, serif;
+  outline:0px !important;
+  -webkit-appearance:none;
+  box-shadow: none !important;
+}
+.postTextArea{
+  margin-top: 40px;
+  margin-left: 40px;
+  width : 96%;
+  height: 500px;
+  resize: none;
+  font-size: 18px;
+  font-family: "Verdana", Times, serif;
+  background-color: #bdb195;
+  outline:0px !important;
+  -webkit-appearance:none;
+  box-shadow: none !important;
 }

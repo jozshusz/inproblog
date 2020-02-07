@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<script src="../../js/post_handler.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../css/homepage.css">
+	<title>
+		Posts
+	</title>
+</head>
+
+<body>
+	<h2 class="importantInfos">Read and give me opinions in the comment section</h2>
+	<ul class="menuNav">
+	  <li class="menuItems"><a class="menuNames" href="../../index.html">Home</a></li>
+	  <li class="menuItems"><a class="menuNames active" href="../posts.html">Posts</a></li>
+	  <li class="menuItems"><a class="menuNames" href="../chat.html">Chat</a></li>
+	  <li class="menuItems"><a class="menuNames" href="../myprofile.html">About me</a></li>
+	  <li class="menuItems" id="signInMenu"><a class="menuNames" href="../signin.html">Sign in</a></li>
+	</ul>
+	<div class="row">
+		<div id="leftColumnId" class="leftColumnClass">
+            <textarea class="postHeader" rows="1"></textarea>
+            <textarea class="postTextArea"></textarea>
+            <button class="newStuffButton" type="button" onclick="submitPost()" style="float: right;">
+                Submit
+            </button>
+		</div>
+		<div class="rightColumn">
+			<div class="rightBlock">	
+				<div class="searchBlock">
+					<p class="normalText">
+						Search a topic
+						<input type="text" id="fname" placeholder="Search...">
+					</p>
+				</div>
+			</div>
+			<div class="rightBlock">	
+				<div class="emailBlock">
+					<p class="normalText">
+						<a href="../posts.html">Send me an e-mail!</a>
+					</p>
+				</div>
+			</div>
+			<div class="rightBlock">	
+				<div class="pictureofmeBlock">
+					<p class="normalText">
+						Hi, this is me:
+					</p>
+					<img src="../../img/tó.jpg" class="imageStyle" alt="Me at the lake" height="180" width="140">
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+
+</html>

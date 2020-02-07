@@ -1,4 +1,4 @@
-function newPost() {
+function newPostBeta() {
     var artBlockDiv = document.createElement("div");
     var article = document.createElement("article");
     var paragraphOfArticle = document.createElement("p");
@@ -14,6 +14,6 @@ function newPost() {
 
     artBlockDiv.appendChild(article);
     article.appendChild(paragraphOfArticle);
-    document.getElementById("leftColumnId").appendChild(artBlockDiv);
+    document.getElementById("postSection").appendChild(artBlockDiv);
 	console.log("You added a new post!");
 }

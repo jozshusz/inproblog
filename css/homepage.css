@@ -7,10 +7,12 @@ body {
 .importantInfos{
 	  font-family: "Verdana", Times, serif;
     text-align: center;
+    font-size: 40px;
 }
 html{
 	min-height: 100%;
-	background: linear-gradient(rgb(97, 100, 105), rgb(71, 91, 99));
+  background: linear-gradient(rgb(220, 228, 242), rgb(207, 225, 232));
+  /*background: rgb(195, 201, 212);*/
 }
 
 .menuNav{
@@ -42,11 +44,11 @@ html{
 }
 
 .menuNames:hover{
-  background-color: #111;
+  background-color: #6e94c2;
 }
 
 .active{
-  background-color: rgb(23, 7, 167);
+  background-color: rgb(80, 113, 153); 
 }
 
 .homeIntro{
@@ -140,7 +142,7 @@ html{
   cursor: pointer;
 }
 .postHeader{
-  margin-top: 50px;
+  margin-top: 20px;
   margin-left: 40px;
   padding-top: 10px;
   width : 96%;
@@ -151,16 +153,17 @@ html{
   outline:0px !important;
   -webkit-appearance:none;
   box-shadow: none !important;
+  background-color: #b4d4c1;
 }
 .postTextArea{
-  margin-top: 40px;
+  margin-top: 30px;
   margin-left: 40px;
   width : 96%;
   height: 500px;
   resize: none;
   font-size: 18px;
   font-family: "Verdana", Times, serif;
-  background-color: #bdb195;
+  background-color: #c5e8d3;
   outline:0px !important;
   -webkit-appearance:none;
   box-shadow: none !important;

@@ -1,5 +1,9 @@
 <?php
 
+////////////
+// DID NOT FINISH THE VIDEO
+////////////
+
 class Database{
     //DB params
     private $host = "localhost";

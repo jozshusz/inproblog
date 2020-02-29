@@ -2,6 +2,7 @@
 
 <html>
 <head>
+	<meta content="text/html; charset=utf-8">
 	<script src="../../js/post_handler.js"></script>
 	<link rel="stylesheet" type="text/css" href="../../css/homepage.css">
 	<title>
@@ -20,11 +21,12 @@
 	</ul>
 	<div class="row">
 		<div id="leftColumnId" class="leftColumnClass">
-            <textarea class="postHeader" rows="1"></textarea>
-            <textarea class="postTextArea"></textarea>
-            <button class="newStuffButton" type="button" onclick="submitPost()" style="float: right;">
-                Submit
-            </button>
+			<form action="newPost.php" method="post" enctype="multipart/form-data">
+				<textarea class="postHeader" rows="1" name="title"></textarea>
+				<textarea class="postTextArea" name="post_text"></textarea>
+				<input class="newStuffButton" style="float: right;" type="submit" value="Submit" name="submit">
+			</form>
+
 		</div>
 		<div class="rightColumn">
 			<div class="rightBlock">	

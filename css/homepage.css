@@ -1,14 +1,17 @@
 * {
   box-sizing: border-box;
 }
+
 body {
   padding: 20px;
 }
+
 .importantInfos{
 	  font-family: "Verdana", Times, serif;
     text-align: center;
     font-size: 40px;
 }
+
 html{
 	min-height: 100%;
   background: linear-gradient(rgb(220, 228, 242), rgb(207, 225, 232));
@@ -68,7 +71,6 @@ html{
 
 .articleStyle *{
   grid-column: 2 / 3;
-  font-weight: bold;
   font-family: "Verdana", Times, serif;
 }
 
@@ -90,8 +92,8 @@ html{
 }
 
 .artBlock {
-  background-color: rgb(151, 151, 151);
-  padding: 20px;
+  background-color: hsl(209, 38%, 27%) !important;;
+  padding: 10px;
   margin-top: 20px;
 }
 
@@ -120,19 +122,22 @@ html{
   box-sizing: border-box;
   width: 90%;
 }
+
 .imageStyle{
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  max-width: 50%;
+  height: auto;
 }
+
 .signTitle{
   margin-top: 70px;
 }
 
 .newStuffButton {
   margin-top: 20px;
-  background-color: #6bb573; /* Green */
+  background-color: hsl(226, 27%, 26%) !important;
   border: none;
   color: white;
   padding: 10px 24px;
@@ -140,7 +145,9 @@ html{
   text-decoration: none;
   font-size: 16px;
   cursor: pointer;
+  float: right;
 }
+
 .postHeader{
   margin-top: 20px;
   margin-left: 40px;
@@ -155,6 +162,7 @@ html{
   box-shadow: none !important;
   background-color: #b4d4c1;
 }
+
 .postTextArea{
   margin-top: 30px;
   margin-left: 40px;
@@ -167,4 +175,27 @@ html{
   outline:0px !important;
   -webkit-appearance:none;
   box-shadow: none !important;
+}
+
+.postDisplayTitle{
+  color: white;
+  font-size: 25px;
+  font-family: "Verdana", Times, serif;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.deleteButtonStyle {
+  background-color: rgb(124, 2, 2);
+  border: none;
+  color: white;
+  padding: 2px 4px;
+  font-size: 8px;
+  cursor: pointer;
+  float: right;
+}
+
+/* Darker background on mouse-over */
+.deleteButtonStyle:hover {
+  background-color: rgb(51, 2, 2);
 }

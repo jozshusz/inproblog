@@ -17,3 +17,94 @@ function newPostBeta() {
     document.getElementById("postSection").appendChild(artBlockDiv);
 	console.log("You added a new post!");
 }
+
+var self = this;
+
+function loadPosts() {
+    /*var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("demo").innerHTML =
+        this.responseText;
+      }
+    };
+    xhttp.open("GET", "ajax_info.txt", true);
+    xhttp.send();*/
+
+    //calling PHP file to get all the rows from post table
+    //$(document).ready(function() { //if not commented out, the ajax call does not return anything
+    $.ajax({    //create an ajax request to posts.php
+        type: "GET",
+        url: "../sub/posts.php",             
+        dataType: "json",   //expect html to be returned                
+        success: function(response){
+            //iterate through response json to create posts (divs) with key - value pairs
+            for (var i = 0; i < response.length; i++){
+                var obj = response[i];
+                for (var key in obj){
+                    //console.log(obj[key]);
+                }
+                var artBlockDiv = document.createElement("div");
+                var article = document.createElement("article");
+                artBlockDiv.id = obj["id"];
+                document.getElementById("postSection").appendChild(artBlockDiv);
+
+                //delete button for admin
+                var deleteForm = document.createElement("form");
+                deleteForm.setAttribute("method","post");
+
+                ////// TO STOP FROM RELOADING
+                function handleForm(event) { event.preventDefault(); } 
+                deleteForm.addEventListener('submit', handleForm);
+                //////
+                
+                var deleteButton = document.createElement("button");
+                deleteButton.setAttribute("type", "submit");
+                deleteButton.setAttribute("id", obj["id"]+"deleteButton"); //for identifying which post to delete
+                deleteButton.setAttribute("name", "X");
+                deleteButton.innerHTML = "X";
+                deleteButton.className = "deleteButtonStyle";
+                deleteForm.appendChild(deleteButton);
+                document.getElementById(obj["id"]).appendChild(deleteForm);
+                deleteButton.onclick = (function(){ //now it passes the current and correct id of the button
+                    var currentId = deleteButton.id;
+                    return function() { 
+                        self.removePost(currentId);
+                    }
+                })();
+                // end of delete
+
+                //title of the post
+                var displayTitleOfArticle = document.createElement("p");
+                displayTitleOfArticle.className = "postDisplayTitle";
+                var titleNode = document.createTextNode(obj["title"]);
+                displayTitleOfArticle.appendChild(titleNode);
+
+                //post text
+                var displayTextOfArticle = document.createElement("p");
+                displayTextOfArticle.className = "postDisplayText";
+                var postTextNode = document.createTextNode(obj["post_text"]);
+                displayTextOfArticle.appendChild(postTextNode);
+
+                artBlockDiv.className = "artBlock";
+                article.className = "articleStyle";
+
+                //additional datas for id, date etc
+                artBlockDiv.setAttribute('data-created',obj["created_at"]); 
+                artBlockDiv.setAttribute('data-updated',obj["updated_at"]);
+                //artBlockDiv.setAttribute('data-id',obj["id"]);
+                artBlockDiv.setAttribute('data-labels',obj["labels"]);
+
+                artBlockDiv.appendChild(displayTitleOfArticle);
+                artBlockDiv.appendChild(article);
+                article.appendChild(displayTextOfArticle);
+            }
+        }
+    });
+    //});
+}
+loadPosts();
+
+function removePost(id) {
+    console.log(id + "deleted\n");
+}

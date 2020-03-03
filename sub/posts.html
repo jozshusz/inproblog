@@ -2,8 +2,8 @@
 
 <html>
 <head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<meta content="text/html; charset=utf-8">
-	<script src="../js/post_handler.js"></script>
 	<link rel="stylesheet" type="text/css" href="../css/homepage.css">
 	<title>
 		Posts
@@ -22,10 +22,11 @@
 	<div class="row">
 		<div id="leftColumnId" class="leftColumnClass">
 			<div id="postSection">
-				<iframe src="posts.php"></iframe>
+				<!--<iframe src="posts.php"></iframe> NOT GOOD HABIT-->
 				<!--<div class="artBlock">
+					<p class="postDisplayTitle">Cím</p>
 					<article class="articleStyle">
-						<p>Valami</p>
+						<p class="postDisplayText">Valami</p>
 					</article>
 				</div>-->
 			</div>
@@ -61,6 +62,9 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- posts to load -->
+	<script src="../js/post_handler.js"></script>
 </body>
 
 

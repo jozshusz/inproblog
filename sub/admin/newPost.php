@@ -1,5 +1,10 @@
 <?php
-header('Content-Type: text/html; charset=utf-8');
+//var_dump($_POST["title"]);
+//die(); //for debugging
+
+// echo '<pre>' . json_encode($valami, JSON_PRETTY_PRINT) . '</pre>'; 
+
+/*header('Content-Type: text/html; charset=utf-8');
 $conn = mysqli_connect('localhost', 'root', 'doingprod2jes2z');
 
 if(!$conn){
@@ -24,5 +29,5 @@ if(!mysqli_query($conn, $sql)){
     echo 'Message inserted';
 }
 
-header("refresh:1; url=../posts.html");
+header("refresh:1; url=../posts.html");*/
 ?>

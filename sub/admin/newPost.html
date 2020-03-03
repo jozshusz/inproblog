@@ -3,7 +3,6 @@
 <html>
 <head>
 	<meta content="text/html; charset=utf-8">
-	<script src="../../js/post_handler.js"></script>
 	<link rel="stylesheet" type="text/css" href="../../css/homepage.css">
 	<title>
 		Posts
@@ -21,7 +20,7 @@
 	</ul>
 	<div class="row">
 		<div id="leftColumnId" class="leftColumnClass">
-			<form action="newPost.php" method="post" enctype="multipart/form-data">
+			<form action="../../php/router.php" method="post" enctype="multipart/form-data">
 				<textarea class="postHeader" rows="1" name="title"></textarea>
 				<textarea class="postTextArea" name="post_text"></textarea>
 				<input class="newStuffButton" style="float: right;" type="submit" value="Submit" name="submit">

@@ -1,3 +1,4 @@
+//not using
 function newPostBeta() {
     var artBlockDiv = document.createElement("div");
     var article = document.createElement("article");
@@ -35,7 +36,7 @@ function loadPosts() {
     //$(document).ready(function() { //if not commented out, the ajax call does not return anything
     $.ajax({    //create an ajax request to posts.php
         type: "GET",
-        url: "../sub/posts.php",             
+        url: "../php/router.php",             
         dataType: "json",   //expect html to be returned                
         success: function(response){
             //iterate through response json to create posts (divs) with key - value pairs
@@ -51,17 +52,27 @@ function loadPosts() {
 
                 //delete button for admin
                 var deleteForm = document.createElement("form");
-                deleteForm.setAttribute("method","post");
+                deleteForm.setAttribute("method", "post");
+                deleteForm.setAttribute("enctype", "multipart/form-data");
 
                 ////// TO STOP FROM RELOADING
                 function handleForm(event) { event.preventDefault(); } 
-                deleteForm.addEventListener('submit', handleForm);
+                deleteForm.addEventListener("submit", handleForm);
                 //////
-                
+
+                /////// hidden input to pass ID to php
+                /*var hiddenInput = document.createElement("input");
+                hiddenInput.setAttribute("type", "hidden");
+                hiddenInput.setAttribute("value", obj["id"]+"deleteButton"); 
+                hiddenInput.setAttribute("name", "idInput");
+                deleteForm.appendChild(hiddenInput);*/
+                ///////
+
                 var deleteButton = document.createElement("button");
                 deleteButton.setAttribute("type", "submit");
-                deleteButton.setAttribute("id", obj["id"]+"deleteButton"); //for identifying which post to delete
+                //deleteButton.setAttribute("id", obj["id"]+"deleteButton"); 
                 deleteButton.setAttribute("name", "X");
+                deleteButton.setAttribute("id", obj["id"]+"deleteButton"); //for identifying which post to delete
                 deleteButton.innerHTML = "X";
                 deleteButton.className = "deleteButtonStyle";
                 deleteForm.appendChild(deleteButton);
@@ -90,10 +101,10 @@ function loadPosts() {
                 article.className = "articleStyle";
 
                 //additional datas for id, date etc
-                artBlockDiv.setAttribute('data-created',obj["created_at"]); 
-                artBlockDiv.setAttribute('data-updated',obj["updated_at"]);
+                artBlockDiv.setAttribute("data-created",obj["created_at"]); 
+                artBlockDiv.setAttribute("data-updated",obj["updated_at"]);
                 //artBlockDiv.setAttribute('data-id',obj["id"]);
-                artBlockDiv.setAttribute('data-labels',obj["labels"]);
+                artBlockDiv.setAttribute("data-labels",obj["labels"]);
 
                 artBlockDiv.appendChild(displayTitleOfArticle);
                 artBlockDiv.appendChild(article);
@@ -106,5 +117,32 @@ function loadPosts() {
 loadPosts();
 
 function removePost(id) {
-    console.log(id + "deleted\n");
+    //confirmation box; sweetalert2
+    Swal.fire({
+        title: 'Are you sure?',
+        //text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+
+            // php call to delete
+            $.ajax({    //create an ajax request to posts.php
+                type: "POST",
+                url: "../php/router.php",     
+                data: {"id": id},        
+                dataType: "text",   //expect html to be returned                
+                success: function(response){
+                    console.log(response);
+                }
+            });
+
+            // result box
+            if (result.value) {
+                Swal.fire('Post deleted.')
+                window.location.reload(true); 
+            }
+    })
 }

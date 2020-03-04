@@ -142,7 +142,11 @@ function removePost(id) {
             // result box
             if (result.value) {
                 Swal.fire('Post deleted.')
-                window.location.reload(true); 
+                //window.location.reload(true); 
+                var divId = parseInt(id);
+                var div = document.getElementById(divId);
+                div.innerHTML = "";
+                div.remove();
             }
     })
 }

@@ -4,16 +4,27 @@
 <head>
 	<meta content="text/html; charset=utf-8">
 	<link rel="stylesheet" type="text/css" href="../css/homepage.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<title>
 		Chat
 	</title>
 </head>
 
 <body>
-	<h2 class="importantInfos">Not implemented yet.</h2>
+	<h2 class="importantInfos">Be kind and have a good time</h2>
 	<ul class="menuNav">
-	  <li class="menuItems"><a class="menuNames" href="../index.html">Home</a></li>
+		<li class="menuItems"><a class="menuNames" href="../index.html">Home</a></li>
+		<li class="menuItems"><a class="menuNames" href="posts.html">Posts</a></li>
+		<li class="menuItems"><a class="menuNames active" href="chat.html">Chat</a></li>
+		<li class="menuItems"><a class="menuNames" href="myprofile.html">About me</a></li>
+		<li class="menuItems" id="signInMenu"><a class="menuNames" href="signin.html">Sign in</a></li>
 	</ul>
+
+	<textarea id="chat_text_area" class="chat_text_area" readonly></textarea>
+	<textarea id="chat_write" class="chat_write"></textarea>
+
+	
+	<script src="../js/chat.js"></script>
 </body>
 
 

@@ -199,3 +199,32 @@ html{
 .deleteButtonStyle:hover {
   background-color: rgb(51, 2, 2);
 }
+
+.chat_text_area{
+  margin-top: 30px;
+  margin-left: 40px;
+  width : 70%;
+  height: 400px;
+  resize: none;
+  font-size: 18px;
+  font-family: "Verdana", Times, serif;
+  background-color: white;
+  outline:0px !important;
+  -webkit-appearance:none;
+  box-shadow: none !important;
+}
+
+.chat_write{
+  margin-top: 20px;
+  margin-left: 40px;
+  padding-top: 3px;
+  width : 70%;
+  height: 30px;
+  resize: none;
+  font-size: 18px;
+  font-family: "Verdana", Times, serif;
+  outline:0px !important;
+  -webkit-appearance:none;
+  box-shadow: none !important;
+  background-color: white;
+}

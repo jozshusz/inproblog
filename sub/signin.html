@@ -10,7 +10,8 @@
 </head>
 
 <body>
-	<ul class="menuNav signTitle">
+	<h2 class="importantInfos">Sign in</h2>
+	<ul class="menuNav">
 	  <li class="menuItems"><a class="menuNames" href="../index.html">Home</a></li>
 	  <li class="menuItems"><a class="menuNames" href="posts.html">Posts</a></li>
 	  <li class="menuItems"><a class="menuNames" href="chat.html">Chat</a></li>
@@ -18,9 +19,37 @@
 	  <li class="menuItems" id="signInMenu"><a class="menuNames active" href="signin.html">Sign in</a></li>
 	</ul>
 	<div class="homeIntro">
-		<p>
-			Sign in!
-		</p>
+		<div id="id01" class="modal">
+			<form class="modal-content" action="../php/router.php" method="post">
+			  <div class="imgcontainer">
+				<img src="../img/loginAvatar.jpg" alt="Avatar" class="avatar">
+			  </div>
+		  
+			  <div class="container">
+				<label for="username"><b>Username</b></label>
+				<input id="signUsername" type="text" placeholder="Enter Username" name="username" required>
+		  
+				<label for="psw"><b>Password</b></label>
+				<input id="signPassword" type="password" placeholder="Enter Password" name="psw" required>
+				  
+				<button class="signButton" type="submit">Login</button>
+				<label>
+				  <input type="checkbox" name="remember"> Remember me
+				</label>
+				<div class="container" >
+					<span class="psw">Forgot <a href="#">password?</a></span>
+				</div>
+			  </div>
+		  
+			  
+			</form>
+		</div>
+
+		<!-- sign up -->
+		<div class="signUpDiv">
+			<span class="newHereSpan">New here?</span>
+			<a href="signup.html" class="signUpButtonClass">Sign up</a>
+		</div>
 	</div>
 </body>
 

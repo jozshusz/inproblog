@@ -37,7 +37,7 @@ function loadPosts() {
     $.ajax({    //create an ajax request to posts.php
         type: "GET",
         url: "../php/router.php",             
-        dataType: "json",   //expect html to be returned                
+        dataType: "json",   //expect json to be returned                
         success: function(response){
             //iterate through response json to create posts (divs) with key - value pairs
             for (var i = 0; i < response.length; i++){

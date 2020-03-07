@@ -20,8 +20,11 @@
 		<li class="menuItems" id="signInMenu"><a class="menuNames" href="signin.html">Sign in</a></li>
 	</ul>
 
-	<textarea id="chat_text_area" class="chat_text_area" readonly></textarea>
-	<textarea id="chat_write" class="chat_write"></textarea>
+	
+	<form id="chatForm" method="post" name="chatNameForm">
+		<textarea id="chat_text_area_id" class="chat_text_area_class" readonly></textarea>
+		<textarea id="chat_message_id" class="chat_message_class" name="chat_write" placeholder="Write a message..."></textarea>
+	</form>
 
 	
 	<script src="../js/chat.js"></script>

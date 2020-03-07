@@ -148,6 +148,10 @@ html{
   float: right;
 }
 
+.newStuffButton:hover {
+  opacity: 0.8;
+}
+
 .postHeader{
   margin-top: 20px;
   margin-left: 40px;
@@ -200,7 +204,7 @@ html{
   background-color: rgb(51, 2, 2);
 }
 
-.chat_text_area{
+.chat_text_area_class{
   margin-top: 30px;
   margin-left: 40px;
   width : 70%;
@@ -214,7 +218,7 @@ html{
   box-shadow: none !important;
 }
 
-.chat_write{
+.chat_message_class{
   margin-top: 20px;
   margin-left: 40px;
   padding-top: 3px;
@@ -227,4 +231,139 @@ html{
   -webkit-appearance:none;
   box-shadow: none !important;
   background-color: white;
+}
+
+/* Sign in */
+#signUsername{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+#signPassword{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.signButton {
+  background-color: hsl(226, 27%, 26%);
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.signButton:hover {
+  opacity: 0.8;
+}
+
+/* Center the image and position the close button */
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
+}
+
+img.avatar {
+  width: 10%;
+  border-radius: 50%;
+}
+
+.container {
+  padding: 12px;
+  background-color: #fefefe;
+}
+
+span.psw {
+  float: center;
+}
+
+/* The Modal (background) */
+.modal {
+  margin: auto;
+  width: 40%; /* Full width */
+  height: 60%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 1% auto 10% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+/* Sign in end */
+
+.signUpDiv{
+  margin-top: 8px;
+  font-size: 22px;
+}
+
+.newHereSpan{
+  font-size: 18px;
+}
+
+.signUpButtonClass {
+  background-color: hsl(226, 27%, 26%);
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+
+  text-decoration: none;
+}
+
+.signUpButtonClass:hover {
+  opacity: 0.8;
+}
+
+#signUpEmailId{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+#signUpUsernameId{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+#signUpPasswordOneId{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+#signUpPasswordTwoId{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
 }

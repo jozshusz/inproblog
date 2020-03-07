@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="../css/homepage.css">
+	<title>
+		Sign up
+	</title>
+</head>
+
+<body>
+	<h2 class="importantInfos">Sign up</h2>
+	<ul class="menuNav">
+	  <li class="menuItems"><a class="menuNames" href="../index.html">Home</a></li>
+	  <li class="menuItems"><a class="menuNames" href="posts.html">Posts</a></li>
+	  <li class="menuItems"><a class="menuNames" href="chat.html">Chat</a></li>
+	  <li class="menuItems"><a class="menuNames" href="myprofile.html">About me</a></li>
+	  <li class="menuItems" id="signInMenu"><a class="menuNames" href="signin.html">Sign in</a></li>
+	</ul>
+	<div class="homeIntro">
+        <div id="id01" class="modal">
+			<form id="signUpForm" class="modal-content" action="../php/router.php" method="post"> <!--  -->
+			  <div class="imgcontainer">
+				<img src="../img/signupavatar.png" alt="Avatar" class="avatar">
+			  </div>
+		  
+			  <div class="container">
+                <label for="signUpEmail"><b>E-mail</b></label>
+                <input id="signUpEmailId" type="text" placeholder="Enter E-mail" name="signUpEmailName" required>
+                
+				<label for="signUpUsername"><b>Username</b></label>
+				<input id="signUpUsernameId" type="text" placeholder="Enter Username" name="signUpUsername" required>
+		  
+				<label for="signUpPswOne"><b>Password</b></label>
+                <input id="signUpPasswordOneId" type="password" placeholder="Enter Password" name="signUpPswOne" required>
+                
+                <label for="signUpPswTwo"><b>Confirm Password</b></label>
+				<input id="signUpPasswordTwoId" type="password" placeholder="Enter Password" name="signUpPswTwo" required>
+				  
+				<button class="signButton" type="submit">Sign Up</button>
+			  </div>
+			</form>
+		</div>
+    </div>
+    
+	<script src="../js/sign.js"></script>
+</body>
+
+
+</html>

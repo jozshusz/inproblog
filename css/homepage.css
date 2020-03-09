@@ -367,3 +367,13 @@ span.psw {
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
+
+.wrongPw{
+  border: 1px solid #FF0000;
+}
+
+/*.header{
+  background-image: url('../img/header.jpg');
+  max-width: 100%;
+  height: auto;
+}*/

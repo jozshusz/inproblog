@@ -2,6 +2,7 @@
 
 <html>
 <head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<meta content="text/html; charset=utf-8">
     <link rel="stylesheet" type="text/css" href="../css/homepage.css">
 	<title>
@@ -20,17 +21,22 @@
 	</ul>
 	<div class="homeIntro">
 		<div id="id01" class="modal">
-			<form class="modal-content" action="../php/router.php" method="post">
+			<form id="signInForm" class="modal-content" action="../php/router.php" method="post">
 			  <div class="imgcontainer">
 				<img src="../img/loginAvatar.jpg" alt="Avatar" class="avatar">
 			  </div>
 		  
 			  <div class="container">
-				<label for="username"><b>Username</b></label>
-				<input id="signUsername" type="text" placeholder="Enter Username" name="username" required>
-		  
-				<label for="psw"><b>Password</b></label>
-				<input id="signPassword" type="password" placeholder="Enter Password" name="psw" required>
+				<div id="usernameDiv">
+					<label for="username"><b>Username</b></label>
+					<input id="signUsername" type="text" placeholder="Enter Username" name="username" required>
+				</div>
+				<br>
+				<div id="passwordDiv">
+					<label for="psw"><b>Password</b></label>
+					<input id="signPassword" type="password" placeholder="Enter Password" name="psw" required>
+				</div>
+				<br>
 				  
 				<button class="signButton" type="submit">Login</button>
 				<label>
@@ -51,6 +57,7 @@
 			<a href="signup.html" class="signUpButtonClass">Sign up</a>
 		</div>
 	</div>
+	<script src="../js/signin.js"></script>
 </body>
 
 

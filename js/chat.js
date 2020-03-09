@@ -19,9 +19,6 @@ $.ajax({    //create an ajax request to posts.php
     }
 });
 
-
-
-
 function newMessageSend(chat_message) {
     $.ajax({    //create an ajax request to send chat message
         type: "POST",

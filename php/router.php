@@ -1,4 +1,5 @@
 <?php
+session_start();
 header("Content-Type: text/html; charset=utf-8");
 
 /*echo $_SERVER['REQUEST_METHOD'];
@@ -143,7 +144,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 
         ////// SIGN UP
         // username, psw1, pws2 and email posted
-        var_dump($_POST);
+        //var_dump($_POST);
         if(array_key_exists("signUpEmailName", $_POST) && array_key_exists("signUpUsername", $_POST) 
             && array_key_exists("signUpPswOne", $_POST) && array_key_exists("signUpPswTwo", $_POST)){
 
@@ -171,7 +172,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
             $today = date("Y-m-d H:i:s");
             $status = "member";
             $options = [     //for hashing
-                'cost' => 11,
+                "cost" => 11,
             ];
 
             //check if e-mail and username does not exist (otherwise dont insert)
@@ -191,8 +192,69 @@ switch ($_SERVER["REQUEST_METHOD"]) {
                         echo "Cannot insert to database.";
                     }else{
                         echo "User inserted\n";
+                        header("refresh:1; url=../sub/signin.html");
                     }
                 }
+            }
+        }
+        //////
+
+        // SIGN IN 
+        ///// username and password POST, and the array size == 2
+        //var_dump($_POST);
+        if(array_key_exists("signInUsername", $_POST) && array_key_exists("signInPassword", $_POST) 
+            && count($_POST) == 2){
+            $conn = mysqli_connect("localhost", "root", "doingprod2jes2z");
+
+            if(!$conn){
+                echo "Error while connecting to the database.";
+            }
+            if(!mysqli_select_db($conn, "inprodatabase")){
+                echo "Database not selected.";
+            }
+            
+            if (isset($_POST["signInUsername"])) {
+                $signInUsername = $_POST["signInUsername"];
+            }
+            if (isset($_POST["signInPassword"])) {
+                $signInPassword = $_POST["signInPassword"];
+            }
+            $options = [     //for hashing
+                "cost" => 11,
+            ];
+            
+            $sql = "SELECT * FROM user WHERE username='$signInUsername'";
+            $check_query = mysqli_query($conn, $sql);
+            $check_data = mysqli_fetch_all($check_query, MYSQLI_ASSOC);
+            //$check_data[0]["password"] : password text of first row
+            if(count($check_data) == 1){  // already in database, username passing to ajax
+                //to check that database pw and posted pw match
+                if(password_verify($signInPassword, $check_data[0]["password"])){
+
+
+                    //////
+                    // TO DO, thinking: new table user_token(user_id, valid_to, token) to manage tokens
+                    // when logged in, (random guid cookie), generate unique id, save to database
+                    // if valid_to, check token everytime to validate if username logged in
+                    $token = uniqid();
+                    $today = date("Y-m-d H:i:s");
+                    $username = $check_data[0]["username"];
+                    $user_id = $check_data[0]["id"];
+                    $_SESSION["username"] = $username;
+                    $_SESSION["token"] = $token;
+                    $_SESSION["valid_to"] = $today;
+                    //uniqid() : unique id
+                    ///////
+
+
+                    echo json_encode($check_data);
+                }else{
+                    echo json_encode("Wrong password.");
+                }
+            }elseif(count($check_data) == 0){
+                echo json_encode("Username does not exist.");
+            }else{
+                echo json_encode("Error.");
             }
         }
         

@@ -37,6 +37,7 @@ function loadPosts() {
     $.ajax({    //create an ajax request to posts.php
         type: "GET",
         url: "../php/router.php",             
+        data: { "get_all_posts": "to_do" },  
         dataType: "json",   //expect json to be returned                
         success: function(response){
             //iterate through response json to create posts (divs) with key - value pairs
@@ -50,23 +51,14 @@ function loadPosts() {
                 artBlockDiv.id = obj["id"];
                 document.getElementById("postSection").appendChild(artBlockDiv);
 
-                //delete button for admin
-                var deleteForm = document.createElement("form");
+                //delete button for admin; IT IS IMPLEMENTED IN user.js 
+                /*var deleteForm = document.createElement("form");
                 deleteForm.setAttribute("method", "post");
                 deleteForm.setAttribute("enctype", "multipart/form-data");
 
                 ////// TO STOP FROM RELOADING
                 function handleForm(event) { event.preventDefault(); } 
                 deleteForm.addEventListener("submit", handleForm);
-                //////
-
-                /////// hidden input to pass ID to php
-                /*var hiddenInput = document.createElement("input");
-                hiddenInput.setAttribute("type", "hidden");
-                hiddenInput.setAttribute("value", obj["id"]+"deleteButton"); 
-                hiddenInput.setAttribute("name", "idInput");
-                deleteForm.appendChild(hiddenInput);*/
-                ///////
 
                 var deleteButton = document.createElement("button");
                 deleteButton.setAttribute("type", "submit");
@@ -82,7 +74,7 @@ function loadPosts() {
                     return function() { 
                         self.removePost(currentId);
                     }
-                })();
+                })();*/
                 // end of delete
 
                 //title of the post

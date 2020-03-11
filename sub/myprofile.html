@@ -3,6 +3,8 @@
 <html>
 <head>
 	<meta content="text/html; charset=utf-8">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="../js/session.js"></script>
 	<link rel="stylesheet" type="text/css" href="../css/homepage.css">
 	<title>
 		MyProfile
@@ -10,11 +12,15 @@
 </head>
 
 <body>
-	<h2 class="importantInfos">Not implemented yet.</h2>
-	<ul class="menuNav">
-	  <li class="menuItems"><a class="menuNames" href="../index.html">Home</a></li>
+	<h2 class="importantInfos">About <span class="whiteImportant">me</span></h2>
+	<ul id="menuNavId" class="menuNav">
+		<li class="menuItems"><a class="menuNames" href="../index.html">Home</a></li>
+		<li class="menuItems"><a class="menuNames" href="posts.html">Posts</a></li>
+		<li class="menuItems"><a class="menuNames" href="chat.html">Chat</a></li>
+		<li class="menuItems"><a class="menuNames active" href="myprofile.html">About me</a></li>
+		<li class="menuItems" id="signInMenu"><a class="menuNames" href="signin.html">Sign in</a></li>
 	</ul>
 </body>
 
-
+<script src="../js/user.js"></script>
 </html>

@@ -196,8 +196,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
             if (isset($_POST["chat_write"])) {
                 $chat_write = $_POST["chat_write"];
             }
-            $sent_date = date("Y-m-d H:i:s");;
-            $username = "Admin";
+            $sent_date = date("Y-m-d H:i:s");
+            $username = $_SESSION["username"];
             
             $sql = "INSERT INTO chat (username, sent, message_text) 
                     VALUES ('$username', '$sent_date', '$chat_write')";
@@ -205,7 +205,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
             if(!mysqli_query($conn, $sql)){
                 echo "Cannot insert to database.";
             }else{
-                echo "Message inserted\n";
+                echo $_SESSION["username"];
             }
         }
         /////
@@ -305,7 +305,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
                     // if valid_to, check token everytime to validate if username logged in
                     $token = uniqid();
                     $today = date("Y-m-d H:i:s");
-                    $valid_to = date("Y-m-d H:i:s", strtotime('+10 seconds')); //valid for 20 minutes; now 10 sec
+                    $valid_to = date("Y-m-d H:i:s", strtotime('+100 seconds')); //valid for 20 minutes; now 10 sec
                     $username = $check_data[0]["username"];
                     $user_id = $check_data[0]["id"];
                     //insert to user_token db
@@ -323,7 +323,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
                     //cookie create
                     $cookie_name = "token";
                     $cookie_value = $token;
-                    setcookie($cookie_name, $cookie_value, time() + (10), "/");//cookie valid for 20 minutes; now 10 sec
+                    setcookie($cookie_name, $cookie_value, time() + (100), "/");//cookie valid for 20 minutes; now 10 sec
+                    
+                    //cookie create
+                    $cookie_nameUser = "username";
+                    $cookie_valueUser = $_SESSION["username"];
+                    setcookie($cookie_nameUser, $cookie_valueUser, time() + (100), "/");//cookie valid for 20 minutes; now 10 sec
                     
                     $check_data["token"] = $token;
                     $check_data["valid_to"] = $valid_to;
@@ -360,6 +365,38 @@ switch ($_SERVER["REQUEST_METHOD"]) {
                 }
             }
         }
+
+        ///// DELETE CHAT MESSAGE
+        // chat_msg_id, date 
+        //var_dump($_POST);
+        if(isset($_SESSION["username"]) && isset($_SESSION["token"]) && isset($_COOKIE["token"])){
+            if($_SESSION["token"] == $_COOKIE["token"] && $_SESSION["username"] == "admin"){
+                if(array_key_exists("chat_msg_id", $_POST)){
+                    $conn = mysqli_connect("localhost", "root", "doingprod2jes2z");
+
+                    if(!$conn){
+                        echo "Error while connecting to the database.";
+                    }
+                    if(!mysqli_select_db($conn, "inprodatabase")){
+                        echo "Database not selected.";
+                    }
+                    
+                    if (isset($_POST["chat_msg_id"])) {
+                        $chat_msg_id = $_POST["chat_msg_id"];
+                    }
+                    $msg = "Deleted";
+                    
+                    $sql = "UPDATE chat SET message_text='$msg' WHERE chat_id=" . intval($chat_msg_id);
+                    
+                    if(!mysqli_query($conn, $sql)){
+                        echo "Cannot delete message.";
+                    }else{
+                        echo "Message deleted";
+                    }
+                }
+            }
+        }
+        /////
         
         break;
     default:

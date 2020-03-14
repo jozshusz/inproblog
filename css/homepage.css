@@ -241,6 +241,7 @@ html{
   outline:0px !important;
   -webkit-appearance:none;
   box-shadow: none !important;
+  overflow: auto;
 }
 
 .chat_message_class{
@@ -402,3 +403,42 @@ span.psw {
   max-width: 100%;
   height: auto;
 }*/
+
+.chatUsername{
+  font-size: 12px;
+  margin-bottom: 0px;
+}
+
+.chatParagraph{
+  margin-top: 0px;
+  font-size: 18px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.chatDate{
+  display: none;
+}
+
+.chatMessageContainer:hover .chatDate{
+  display: block;
+  font-size: 8px;
+}
+
+.chatDelete{
+  background-color: rgb(124, 2, 2);
+  border: none;
+  color: white;
+  padding: 2px 4px;
+  font-size: 8px;
+  cursor: pointer;
+  float: right;
+}
+
+.chatDelete:hover {
+  background-color: rgb(51, 2, 2);
+}
+
+#sendEmailHref{
+  color: rgb(0, 177, 247);
+}

@@ -17,9 +17,9 @@ TO_DO
 
 ☐ Design, look and feel (header image, post looks, posts preview, colors)
 
-☐ Chat (usernames, delete button, date)
+✔ Chat (usernames, delete button, date) @done(20-03-12 14:57)
 
-☐ Email send
+- Email send (too much configuration to send from localhost)
 
 ☐ Searching through posts
 

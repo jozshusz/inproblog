@@ -397,6 +397,48 @@ switch ($_SERVER["REQUEST_METHOD"]) {
             }
         }
         /////
+
+        ///// SEND EMAIL
+        // email_address 
+        //var_dump($_POST);
+        if(isset($_SESSION["username"]) && isset($_SESSION["token"]) && isset($_COOKIE["token"])){
+            if(array_key_exists("email_address", $_POST) &&
+            array_key_exists("email_header", $_POST) &&
+            array_key_exists("email_text", $_POST)){
+                require_once "Mail.php";
+                $email_address = $_POST["email_address"];
+                $email_header = $_POST["email_header"];
+                $email_text = $_POST["email_text"];
+                $from = "From blog <" . $email_address . ">";
+                $to = "<inproblog@gmail.com>";
+                $subject = $email_header;
+                $body = $email_text;
+
+                $headers = array(
+                    "From" => $from,
+                    "To" => $to,
+                    "Subject" => $subject
+                );
+
+                $smtp = Mail::factory("smtp", array(
+                        "host" => "ssl://smtp.gmail.com",
+                        "port" => "465",
+                        "auth" => true,
+                        "username" => "inproblog@gmail.com",
+                        "password" => "fifa11online11"
+                    ));
+
+                $mail = $smtp->send($to, $headers, $body);
+
+                if (PEAR::isError($mail)) {
+                    echo($mail->getMessage());
+                } else {
+                    echo("E-mail successfully sent!");
+                }
+            }
+            
+        }
+        /////
         
         break;
     default:

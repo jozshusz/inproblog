@@ -142,3 +142,78 @@ function removePost(id) {
             }
     })
 }
+
+function errorEmailMsg(){
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!'
+    })
+}
+
+async function emailPopUp(){
+    //POP up with sweetalert2 to fill email and message 
+    const { value: formValues } = await Swal.fire({
+        title: 'Send email for me',
+        html:
+          '<input id="swal-input1" class="swal2-input" placeholder="E-mail">' +
+          '<input id="swal-input2" class="swal2-input" placeholder="Header">'+
+          '<textarea id="swal-input3-textarea-email" class="swal2-textarea" placeholder="Text">',
+        focusConfirm: false,
+        preConfirm: () => {
+          return [
+            document.getElementById('swal-input1').value,
+            document.getElementById('swal-input2').value,
+            document.getElementById('swal-input3-textarea-email').value
+          ]
+        }
+    })
+    
+    if (formValues) {
+        return formValues;
+    }
+
+}
+//email send button
+document.querySelector('#sendEmailHref').addEventListener('click', function (e) {
+    //promise then
+    emailPopUp().then(function(result){
+        for(var i = 0; i < result.length; i++){
+            if(result[i].trim().length == 0){
+                return errorEmailMsg();
+            }
+        }
+        $.ajax({    
+            type: "POST",
+            url: "../php/router.php",             
+            data: { "email_address": result[0],
+                    "email_header": result[1],
+                    "email_text": result[2] },  
+            dataType: "text",   //expect json to be returned                
+            success: function(response){
+                console.log(response);
+                if(response === "E-mail successfully sent!"){
+                    Swal.fire(
+                        'E-mail sent',
+                        'Thank you for your message',
+                        'success'
+                    )
+                }else{
+                    return errorEmailMsg();
+                }
+            }
+        });
+    });
+    
+
+    //to send with ajax to router.php
+    /*$.ajax({    
+        type: "POST",
+        url: "../php/router.php",             
+        data: { "email_address": "to_do" },  
+        dataType: "json",   //expect json to be returned                
+        success: function(response){
+
+        }
+    });*/
+});

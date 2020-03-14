@@ -442,3 +442,12 @@ span.psw {
 #sendEmailHref{
   color: rgb(0, 177, 247);
 }
+
+#swal-input3-textarea-email{
+  resize: none;
+  font-family: "apercu",sans-serif;
+  outline:0px !important;
+  -webkit-appearance:none;
+  box-shadow: none !important;
+  overflow: auto;
+}

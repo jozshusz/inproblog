@@ -15,16 +15,17 @@ TO_DO
 - when inserting a Post/Article, you have to click Submit to $_POST the article,
 - so it runs anyway
 
-☐ Design, look and feel (header image, post looks, posts preview, colors)
-
 ✔ Chat (usernames, delete button, date) @done(20-03-12 14:57)
 
-- Email send (too much configuration to send from localhost)
-
-☐ Searching through posts
+✔ Email send (too much configuration to send from localhost) @done(20-03-14 15:40)
+ --> maybe use smtp of gmail? @done(20-03-14 15:40)
 
 ☐ Comment for posts (and big display)
+
+☐ Searching through posts
 
 ☐ Home site (welcome)
 
 ☐ About me site (what the site is about)
+
+☐ Design, look and feel (header image, post looks, posts preview, colors)

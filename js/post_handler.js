@@ -78,15 +78,21 @@ function loadPosts() {
                 // end of delete
 
                 //title of the post
-                var displayTitleOfArticle = document.createElement("p");
+                var displayTitleOfArticle = document.createElement("a");
+                displayTitleOfArticle.href = "#";
                 displayTitleOfArticle.className = "postDisplayTitle";
                 var titleNode = document.createTextNode(obj["title"]);
                 displayTitleOfArticle.appendChild(titleNode);
 
-                //post text
+                //post text; if more than 88 length, then hide the remaining text
                 var displayTextOfArticle = document.createElement("p");
                 displayTextOfArticle.className = "postDisplayText";
-                var postTextNode = document.createTextNode(obj["post_text"]);
+                var articlePostText = obj["post_text"];
+                if(articlePostText.length > 89){
+                    articlePostText = articlePostText.substr(0, 88) + ("...");
+                }
+
+                var postTextNode = document.createTextNode(articlePostText);
                 displayTextOfArticle.appendChild(postTextNode);
 
                 artBlockDiv.className = "artBlock";
@@ -101,6 +107,41 @@ function loadPosts() {
                 artBlockDiv.appendChild(displayTitleOfArticle);
                 artBlockDiv.appendChild(article);
                 article.appendChild(displayTextOfArticle);
+
+                // to create "Read the whole post" button
+                var readWhole = document.createElement("a");
+                readWhole.href = "#";
+                readWhole.className = "readWholePost";
+                var readButton = document.createTextNode("Click here to read it...");
+                readWhole.appendChild(readButton);
+                artBlockDiv.appendChild(readWhole);
+
+                //create title and "read whole post" button's click event
+                //title
+                displayTitleOfArticle.onclick = (function(){ //now it passes the current and correct id of the button
+                    var currentId = obj["id"];
+                    return function() { 
+                        self.displayPost(currentId);
+                    }
+                })();
+                //"read whole post" button
+                readWhole.onclick = (function(){ //now it passes the current and correct id of the button
+                    var currentId = obj["id"];
+                    return function() { 
+                        self.displayPost(currentId);
+                    }
+                })();
+
+                //date to display for post
+                var createdDiv = document.createElement("div");
+                createdDiv.className = "postCreatedAtDiv";
+                var createdDate = obj["created_at"];
+                var createdPar = document.createElement("p");
+                createdPar.className = "postCreatedAt";
+                var createdText = document.createTextNode(createdDate.split(" ")[0]);
+                createdPar.appendChild(createdText);
+                createdDiv.appendChild(createdPar);
+                artBlockDiv.appendChild(createdDiv);
             }
         }
     });
@@ -141,6 +182,140 @@ function removePost(id) {
                 div.remove();
             }
     })
+}
+
+//display post AND creating comment section
+function displayPost(id) { 
+    // php call to display post
+    $.ajax({  
+        type: "POST",
+        url: "../php/router.php",     
+        data: {"display_post_id": id},        
+        dataType: "json",              
+        success: function(response){
+            //console.log(response);
+            document.getElementById("postSection").innerHTML = "";
+            document.getElementById("rightColumnId").innerHTML = "";
+
+            //// create the actual post of the given ID
+
+            var artBlockDiv = document.createElement("div");
+            var article = document.createElement("article");
+            artBlockDiv.id = id;
+            document.getElementById("postSection").appendChild(artBlockDiv);
+
+            //title of the post
+            var displayTitleOfArticle = document.createElement("p");
+            displayTitleOfArticle.className = "postActualTitle";
+            var titleNode = document.createTextNode(response[0]["title"]);
+            displayTitleOfArticle.appendChild(titleNode);
+
+            var displayTextOfArticle = document.createElement("p");
+            displayTextOfArticle.className = "postDisplayText";
+            var articlePostText = response[0]["post_text"];
+
+            var postTextNode = document.createTextNode(articlePostText);
+            displayTextOfArticle.appendChild(postTextNode);
+
+            artBlockDiv.className = "artBlock";
+            article.className = "articleStyle";
+
+            //additional datas for id, date etc
+            artBlockDiv.setAttribute("data-created", response[0]["created_at"]); 
+            artBlockDiv.setAttribute("data-updated", response[0]["updated_at"]);
+            artBlockDiv.setAttribute("data-labels", response[0]["labels"]);
+
+            artBlockDiv.appendChild(displayTitleOfArticle);
+            artBlockDiv.appendChild(article);
+            article.appendChild(displayTextOfArticle);
+
+            document.getElementById("leftColumnId").style.float="center";
+            document.getElementById("leftColumnId").style.width="100%";
+
+            //date to display for post
+            var createdDiv = document.createElement("div");
+            createdDiv.className = "postCreatedAtDiv";
+            var createdDate = response[0]["created_at"];
+            var createdPar = document.createElement("p");
+            createdPar.className = "postCreatedAt";
+            var createdText = document.createTextNode(createdDate.split(" ")[0]);
+            createdPar.appendChild(createdText);
+            createdDiv.appendChild(createdPar);
+            artBlockDiv.appendChild(createdDiv);
+            //// 
+            
+            // no need to have space for new post button
+            document.getElementById("outBlockId").innerHTML = "";
+            document.getElementById("outBlockId").remove();
+
+            // Comments
+            var commentSection = document.createElement("div");
+            commentSection.className = "commentSectionContainer";
+            commentSection.setAttribute("id", response[0] + "comment");
+            
+            var commentSectionHeader = document.createElement("div");
+            commentSectionHeader.className = "commentHeader";
+            var commentHeaderText = document.createTextNode("Kommentek");
+            commentSectionHeader.appendChild(commentHeaderText);
+
+            commentSection.appendChild(commentSectionHeader);
+            document.getElementById("leftColumnId").appendChild(commentSection);
+
+            
+            //new comment
+            var writeCommentButton = document.createElement("a");
+            writeCommentButton.className = "writeCommentButton";
+            writeCommentButton.href = "#";
+            var writeCommentText = document.createTextNode("Write a comment");
+            writeCommentButton.appendChild(writeCommentText);
+            commentSectionHeader.appendChild(writeCommentButton);
+
+            var commentDiv = document.createElement("div");
+            commentDiv.className = "commentDiv";
+            commentDiv.setAttribute("id", "commentDivId");
+            commentSection.appendChild(commentDiv);
+
+            writeCommentButton.onclick = (function(){
+                return function() { 
+                    self.newComment(response[0] + "comment");
+                }
+            })();
+
+            //
+
+        }
+    });
+}
+
+function newComment(id){
+    //check if user is logged in
+    if(document.cookie.indexOf("token") != -1){
+        // create the UI
+        var commentDiv = document.getElementById("commentDivId");
+
+        //div act as a textarea
+        var newCommentArea = document.createElement("div");
+        newCommentArea.className = "newCommentArea";
+        newCommentArea.contentEditable = "true";
+        commentDiv.appendChild(newCommentArea);
+
+
+        /*$.ajax({    //create an ajax request to router.php
+            type: "POST",
+            url: "../php/router.php",  //cookie_check data only
+            data: {"cookie" : document.cookie.split(';')[1].split("=")[1]},    
+            dataType: "json",              
+            success: function(response){
+
+            }
+        });*/
+    }else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'You are not logged in!'
+        });
+    }
 }
 
 function errorEmailMsg(){

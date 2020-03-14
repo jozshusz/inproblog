@@ -20,7 +20,9 @@ TO_DO
 ✔ Email send (too much configuration to send from localhost) @done(20-03-14 15:40)
  --> maybe use smtp of gmail? @done(20-03-14 15:40)
 
-☐ Comment for posts (and big display)
+✔ Post display @done(20-03-14 20:38)
+
+☐ Comments for posts
 
 ☐ Searching through posts
 
@@ -29,3 +31,10 @@ TO_DO
 ☐ About me site (what the site is about)
 
 ☐ Design, look and feel (header image, post looks, posts preview, colors)
+
+
+pick up from:
+    won't open newly created div when clicked on new comment btn
+    router.php method started, but need to figure out which datas 
+    to send
+    

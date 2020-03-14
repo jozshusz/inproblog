@@ -399,7 +399,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         /////
 
         ///// SEND EMAIL
-        // email_address 
+        // email_address, email_header, email_text
         //var_dump($_POST);
         if(isset($_SESSION["username"]) && isset($_SESSION["token"]) && isset($_COOKIE["token"])){
             if(array_key_exists("email_address", $_POST) &&
@@ -437,6 +437,68 @@ switch ($_SERVER["REQUEST_METHOD"]) {
                 }
             }
             
+        }
+        /////
+
+        ///// DISPLAY POST BY ID
+        // display_post_id 
+        //var_dump($_POST);
+        if(array_key_exists("display_post_id", $_POST)){
+            $conn = mysqli_connect("localhost", "root", "doingprod2jes2z");
+
+            if(!$conn){
+                echo "Error while connecting to the database.";
+            }
+            if(!mysqli_select_db($conn, "inprodatabase")){
+                echo "Database not selected.";
+            }
+            
+            if (isset($_POST["display_post_id"])) {
+                $display_post_id = $_POST["display_post_id"];
+            }
+
+            $getPost = "SELECT * FROM post WHERE id=" . $display_post_id;
+            $query = mysqli_query($conn, $getPost);
+            $result = mysqli_fetch_all($query, MYSQLI_ASSOC);
+            
+            echo json_encode($result);
+        }
+        /////
+
+        ///// NEW COMMENT
+        // new_comment, cookie
+        // check if user is logged in: username etc session exist, and cookie's token equals session
+        // token
+        //var_dump($_POST);
+        if(array_key_exists("new_comment", $_POST) && array_key_exists("cookie", $_POST)){
+            if(isset($_SESSION["username"]) 
+                && isset($_SESSION["token"]) 
+                && isset($_COOKIE["token"]) && $_COOKIE["token"] == $_POST["cookie"]){
+
+                $conn = mysqli_connect("localhost", "root", "doingprod2jes2z");
+
+                if(!$conn){
+                    echo "Error while connecting to the database.";
+                }
+                if(!mysqli_select_db($conn, "inprodatabase")){
+                    echo "Database not selected.";
+                }
+                
+                if (isset($_POST["chat_write"])) {
+                    $chat_write = $_POST["chat_write"];
+                }
+                $sent_date = date("Y-m-d H:i:s");
+                $username = $_SESSION["username"];
+                
+                $sql = "INSERT INTO chat (username, sent, message_text) 
+                        VALUES ('$username', '$sent_date', '$chat_write')";
+                
+                if(!mysqli_query($conn, $sql)){
+                    echo "Cannot insert to database.";
+                }else{
+                    echo $_SESSION["username"];
+                }
+            }
         }
         /////
         

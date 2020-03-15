@@ -105,12 +105,36 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         }
         ///////
 
+        /////// ALL COMMENTS
+        // post_id, get_all_comments
+        if(array_key_exists("post_id", $_GET) && array_key_exists("get_all_comments", $_GET)){
+            //var_dump($_SESSION);
+            $conn = mysqli_connect("localhost", "root", "doingprod2jes2z");
+
+            if(!$conn){
+                echo "Error while connecting to the database.";
+            }
+            if(!mysqli_select_db($conn, "inprodatabase")){
+                echo "Database not selected.";
+            }
+
+            if(isset($_GET["post_id"])){
+                $post_id = $_GET["post_id"];
+            }
+
+            $getComments = "SELECT * FROM comments WHERE post_id=" . $post_id;
+            $query = mysqli_query($conn, $getComments);
+            $json = mysqli_fetch_all($query, MYSQLI_ASSOC);
+            echo json_encode($json);
+        }
+        /////
+
         break;
     case "POST":
         ///// INSERT POST
         //id, title, post_text passed
         //security: only run if session is admin
-        if(isset($_SESSION["username"])){
+        if(isset($_SESSION["username"]) && isset($_SESSION["token"]) && isset($_COOKIE["token"])){
             if($_SESSION["token"] == $_COOKIE["token"] && $_SESSION["username"] == "admin"){
                 if(!array_key_exists("id", $_POST) 
                 && array_key_exists("title", $_POST) 
@@ -148,7 +172,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         ///// DELETE POST
         //only id passed with POST
         //security: only run if session is admin
-        if(isset($_SESSION["username"])){
+        if(isset($_SESSION["username"]) && isset($_SESSION["token"]) 
+            && isset($_COOKIE["token"])){
             if($_SESSION["token"] == $_COOKIE["token"] && $_SESSION["username"] == "admin"){
                 if(array_key_exists("id", $_POST)){
                     header("Content-Type: text/html; charset=utf-8");
@@ -305,7 +330,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
                     // if valid_to, check token everytime to validate if username logged in
                     $token = uniqid();
                     $today = date("Y-m-d H:i:s");
-                    $valid_to = date("Y-m-d H:i:s", strtotime('+100 seconds')); //valid for 20 minutes; now 10 sec
+                    $valid_to = date("Y-m-d H:i:s", strtotime('+1000 seconds')); //valid for 20 minutes; now 10 sec
                     $username = $check_data[0]["username"];
                     $user_id = $check_data[0]["id"];
                     //insert to user_token db
@@ -323,12 +348,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
                     //cookie create
                     $cookie_name = "token";
                     $cookie_value = $token;
-                    setcookie($cookie_name, $cookie_value, time() + (100), "/");//cookie valid for 20 minutes; now 10 sec
+                    setcookie($cookie_name, $cookie_value, time() + (1000), "/");//cookie valid for 20 minutes; now 10 sec
                     
                     //cookie create
                     $cookie_nameUser = "username";
                     $cookie_valueUser = $_SESSION["username"];
-                    setcookie($cookie_nameUser, $cookie_valueUser, time() + (100), "/");//cookie valid for 20 minutes; now 10 sec
+                    setcookie($cookie_nameUser, $cookie_valueUser, time() + (1000), "/");//cookie valid for 20 minutes; now 10 sec
                     
                     $check_data["token"] = $token;
                     $check_data["valid_to"] = $valid_to;
@@ -347,7 +372,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         ///// CHECK cookie
         // cookie_check posted (client side token)
         if(array_key_exists("cookie_check", $_POST)){
-            if(isset($_POST["cookie_check"])){
+            if(isset($_POST["cookie_check"]) && isset($_SESSION["token"])){
                 if($_POST["cookie_check"] == $_SESSION["token"]){
                     $conn = mysqli_connect("localhost", "root", "doingprod2jes2z");
 
@@ -470,10 +495,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         // check if user is logged in: username etc session exist, and cookie's token equals session
         // token
         //var_dump($_POST);
-        if(array_key_exists("new_comment", $_POST) && array_key_exists("cookie", $_POST)){
+        if(array_key_exists("new_comment", $_POST) && array_key_exists("cookie", $_POST)
+            && array_key_exists("post_id", $_POST)){
             if(isset($_SESSION["username"]) 
                 && isset($_SESSION["token"]) 
-                && isset($_COOKIE["token"]) && $_COOKIE["token"] == $_POST["cookie"]){
+                && isset($_COOKIE["token"]) && $_SESSION["token"] == $_POST["cookie"]){
 
                 $conn = mysqli_connect("localhost", "root", "doingprod2jes2z");
 
@@ -484,19 +510,22 @@ switch ($_SERVER["REQUEST_METHOD"]) {
                     echo "Database not selected.";
                 }
                 
-                if (isset($_POST["chat_write"])) {
-                    $chat_write = $_POST["chat_write"];
+                if (isset($_POST["new_comment"])) {
+                    $new_comment = $_POST["new_comment"];
+                }
+                if (isset($_POST["post_id"])) {
+                    $post_id = $_POST["post_id"];
                 }
                 $sent_date = date("Y-m-d H:i:s");
                 $username = $_SESSION["username"];
                 
-                $sql = "INSERT INTO chat (username, sent, message_text) 
-                        VALUES ('$username', '$sent_date', '$chat_write')";
+                $sql = "INSERT INTO comments (username, sent, comment, post_id) 
+                        VALUES ('$username', '$sent_date', '$new_comment', '$post_id')";
                 
                 if(!mysqli_query($conn, $sql)){
                     echo "Cannot insert to database.";
                 }else{
-                    echo $_SESSION["username"];
+                    echo json_encode("Comment inserted to database.");
                 }
             }
         }

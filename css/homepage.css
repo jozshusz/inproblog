@@ -530,10 +530,62 @@ span.psw {
 }
 
 .newCommentArea{
-  width: 100%;
+  width: 80%;
   height: 110px;
+  background-color: white;
+  font-family: "apercu",sans-serif;
+  font-weight: normal;
+  padding: 10px;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
 .commentDiv{
   margin-top: 10%;
+}
+
+.newCommentButton{
+  float: right;
+  float: bottom;
+  margin-top: 2px;
+  background-color: #17252A !important;
+  border: none;
+  color: white;
+  padding: 4px 8px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.newCommentButton:hover{
+  background-color: rgb(44, 98, 117) !important;
+}
+
+#newCommentAreaDivId{
+  margin-top: 70px;
+}
+
+.loadedComment{
+  float: left;
+  font-family: "apercu",sans-serif;
+  display: block;
+  background-color: #00ffe28c;
+  width: 100%;
+  padding: 10px;
+  font-weight: normal;
+  border-radius: 25px;
+  margin-bottom: 10px;
+}
+
+.loadedCommentDate, .loadedCommentUsername{
+  font-size: 12px;
+}
+
+.loadedCommentDate{
+  float: right;
+}
+
+.loadedCommentUsername{
+  margin-top: 5px;
 }

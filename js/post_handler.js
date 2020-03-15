@@ -264,11 +264,16 @@ function displayPost(id) {
             
             //new comment
             var writeCommentButton = document.createElement("a");
+            writeCommentButton.setAttribute("id", "writeCommentButtonId");
             writeCommentButton.className = "writeCommentButton";
             writeCommentButton.href = "#";
             var writeCommentText = document.createTextNode("Write a comment");
             writeCommentButton.appendChild(writeCommentText);
             commentSectionHeader.appendChild(writeCommentButton);
+
+            var newCommentArea = document.createElement("div");
+            newCommentArea.setAttribute("id", "newCommentAreaDivId");
+            commentSection.appendChild(newCommentArea);
 
             var commentDiv = document.createElement("div");
             commentDiv.className = "commentDiv";
@@ -277,21 +282,55 @@ function displayPost(id) {
 
             writeCommentButton.onclick = (function(){
                 return function() { 
-                    self.newComment(response[0] + "comment");
+                    event.preventDefault();
+                    self.newComment(response[0] + "comment", id);
                 }
             })();
-
             //
+
+            //load existing comments
+            $.ajax({    //create an ajax request to router.php
+                type: "GET",
+                url: "../php/router.php",
+                data: {"post_id": id,
+                       "get_all_comments": "todo"},
+                dataType: "json",              
+                success: function(response){
+                    console.log(response);
+
+                    for(var j = 0; j < response.length; j++){
+                        var loadedComment = document.createElement("div");
+                        loadedComment.className = "loadedComment";
+                        loadedComment.setAttribute("id", response[j]["id"]);
+                        loadedComment.innerHTML = response[j]["comment"];
+                        var loadedCommentDate = document.createElement("div");
+                        loadedCommentDate.className = "loadedCommentDate";
+                        var loadedCommentUsername = document.createElement("div");
+                        loadedCommentUsername.className = "loadedCommentUsername";
+                        var textDate = document.createTextNode(response[j]["sent"]);
+                        var textUsername = document.createTextNode("@" + response[j]["username"]);
+                        loadedCommentDate.appendChild(textDate);
+                        loadedCommentUsername.appendChild(textUsername);
+                        loadedComment.appendChild(loadedCommentUsername);
+                        loadedComment.appendChild(loadedCommentDate);
+                        commentDiv.appendChild(loadedComment);
+                    }
+                }
+            });
 
         }
     });
 }
 
-function newComment(id){
+function newComment(id, postId){
     //check if user is logged in
     if(document.cookie.indexOf("token") != -1){
+        //hide new comment button
+        document.getElementById("writeCommentButtonId").style.display = "none";
+
+
         // create the UI
-        var commentDiv = document.getElementById("commentDivId");
+        var commentDiv = document.getElementById("newCommentAreaDivId");
 
         //div act as a textarea
         var newCommentArea = document.createElement("div");
@@ -299,16 +338,30 @@ function newComment(id){
         newCommentArea.contentEditable = "true";
         commentDiv.appendChild(newCommentArea);
 
+        //send comment button
+        var newCommentButton = document.createElement("button");
+        newCommentButton.setAttribute("type", "button");
+        newCommentButton.className = "newCommentButton";
+        newCommentButton.innerHTML = "Send";
+        commentDiv.appendChild(newCommentButton);
 
-        /*$.ajax({    //create an ajax request to router.php
-            type: "POST",
-            url: "../php/router.php",  //cookie_check data only
-            data: {"cookie" : document.cookie.split(';')[1].split("=")[1]},    
-            dataType: "json",              
-            success: function(response){
+        //console.log("í3");
 
-            }
-        });*/
+        newCommentButton.onclick = function(){
+            var commentText = newCommentArea.innerHTML;
+            console.log(commentText);
+                $.ajax({    //create an ajax request to router.php
+                    type: "POST",
+                    url: "../php/router.php",
+                    data: {"cookie" : document.cookie.split(';')[1].split("=")[1],
+                           "new_comment": commentText,
+                           "post_id": postId},    
+                    dataType: "json",              
+                    success: function(response){
+                        window.location.reload(true); 
+                    }
+                });
+        };
     }else{
         Swal.fire({
             icon: 'error',

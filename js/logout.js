@@ -70,3 +70,25 @@ if(document.cookie.indexOf("token") != -1){
         
     };
 }
+
+//if newPost.html, need to change Sign in button username (cookie check POST)
+var sPathNew = window.location.pathname;
+var currentPageNew = sPathNew.substring(sPathNew.lastIndexOf('/') + 1);
+if(currentPageNew == "newPost.html"){
+    $.ajax({    //create an ajax request to router.php
+        type: "POST",
+        url: "../../php/router.php",  //cookie_check data only
+        data: {"cookie_check" : document.cookie.split(';')[1].split("=")[1]},    
+        dataType: "json",              
+        success: function(response){
+            // sign in button transform to username
+            var username = response[0]["username"];
+            var status = response[0]["status"];
+            $("#signInMenu").empty();
+            var usernameList = document.createElement("li");
+            usernameList.innerHTML = username;
+            usernameList.className = "usernameCss";
+            document.getElementById("menuNavId").appendChild(usernameList);
+        }
+    });
+}

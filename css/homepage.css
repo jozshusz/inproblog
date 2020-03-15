@@ -311,6 +311,11 @@ img.avatar {
   border-radius: 50%;
 }
 
+.avatarHome {
+  border-radius: 50%;
+  width: 20%;
+}
+
 .container {
   padding: 12px;
   background-color: #fefefe;
@@ -602,4 +607,19 @@ span.psw {
   display: block;
   margin-left: 10%;
   margin-right: 10%;
+}
+
+.welcomeTitle{
+  font-family: "apercu",sans-serif;
+  font-size: 48px;
+}
+
+.welcomeText{
+  font-family: "apercu",sans-serif;
+  font-size: 28px;
+}
+
+.tooBigImage{
+  width: 20%;
+  border-radius: 50%;
 }

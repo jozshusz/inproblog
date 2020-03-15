@@ -28,10 +28,12 @@ TO_DO
 
 ✔ little work: newPost.html hide sign in button and display the username @done(20-03-15 17:00) DONE IN logout.js
 
-☐ Searching through posts
+✔ Searching through posts @done(20-03-15 22:21)
 
 ☐ Home site (welcome)
 
 ☐ About me site (what the site is about)
 
 ☐ Design, look and feel (header image, post looks, posts preview, colors)
+
+- idea: maybe the whole menubar to the top, and bigger texts, img-s and then animate

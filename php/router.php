@@ -582,6 +582,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 
         /////// SEARCHED POSTS
         // search_posts
+        // searching proccess: only whole words matched in title, text and labels; not case sensitive
         if(array_key_exists("search_posts", $_POST)){
             //var_dump($_SESSION);
             $conn = mysqli_connect("localhost", "root", "doingprod2jes2z");

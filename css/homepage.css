@@ -139,7 +139,7 @@ html{
   text-align: center;
 }
 
-#fname{
+#searchInputId{
   padding: 12px 20px;
   margin: 25px 0;
   display: inline-block;
@@ -594,4 +594,12 @@ span.psw {
   float: right;
   border-right: none;
   border-left: 1px solid #bbb;
+}
+
+.noPostDivClass{
+  margin-top: 5%;
+  font-family: "apercu",sans-serif;
+  display: block;
+  margin-left: 10%;
+  margin-right: 10%;
 }

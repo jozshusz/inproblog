@@ -430,16 +430,109 @@ document.querySelector('#sendEmailHref').addEventListener('click', function (e) 
             }
         });
     });
-    
+});
 
-    //to send with ajax to router.php
-    /*$.ajax({    
-        type: "POST",
-        url: "../php/router.php",             
-        data: { "email_address": "to_do" },  
-        dataType: "json",   //expect json to be returned                
-        success: function(response){
 
+//Search for post when enter pressed (and input is filled)
+$("#searchInputId").on("keyup", function (e) {
+    if (e.keyCode === 13) {
+        if($("#searchInputId").val().trim().length > 0){  //ignore whitespaces in the start and end of the string
+            //console.log($("#searchInputId").val().trim());
+            var searchKeyWord = $("#searchInputId").val().trim();
+            $.ajax({    
+                type: "POST",
+                url: "../php/router.php",             
+                data: { "search_posts": searchKeyWord},  
+                dataType: "json",   //expect json to be returned                
+                success: function(response){
+                    console.log(response);
+
+                    //first clear the page, then load searched posts only
+                    document.getElementById("postSection").innerHTML = "";
+                    if(response.length < 1){
+                        var noPostDiv = document.createElement("div");
+                        noPostDiv.className = "noPostDivClass";
+                        var noPostText = document.createTextNode("No post match the searching word(s)");
+                        noPostDiv.appendChild(noPostText);
+                        document.getElementById("postSection").appendChild(noPostDiv);
+                    }else{
+                        //iterate through response json to create posts (divs) with key - value pairs
+                        for (var i = 0; i < response.length; i++){
+                            var obj = response[i];
+                            var artBlockDiv = document.createElement("div");
+                            var article = document.createElement("article");
+                            artBlockDiv.id = obj["id"];
+                            document.getElementById("postSection").appendChild(artBlockDiv);
+            
+                            //title of the post
+                            var displayTitleOfArticle = document.createElement("a");
+                            displayTitleOfArticle.href = "#";
+                            displayTitleOfArticle.className = "postDisplayTitle";
+                            var titleNode = document.createTextNode(obj["title"]);
+                            displayTitleOfArticle.appendChild(titleNode);
+            
+                            //post text; if more than 88 length, then hide the remaining text
+                            var displayTextOfArticle = document.createElement("p");
+                            displayTextOfArticle.className = "postDisplayText";
+                            var articlePostText = obj["post_text"];
+                            if(articlePostText.length > 89){
+                                articlePostText = articlePostText.substr(0, 88) + ("...");
+                            }
+            
+                            var postTextNode = document.createTextNode(articlePostText);
+                            displayTextOfArticle.appendChild(postTextNode);
+            
+                            artBlockDiv.className = "artBlock";
+                            article.className = "articleStyle";
+            
+                            //additional datas for id, date etc
+                            artBlockDiv.setAttribute("data-created",obj["created_at"]); 
+                            artBlockDiv.setAttribute("data-updated",obj["updated_at"]);
+                            //artBlockDiv.setAttribute('data-id',obj["id"]);
+                            artBlockDiv.setAttribute("data-labels",obj["labels"]);
+            
+                            artBlockDiv.appendChild(displayTitleOfArticle);
+                            artBlockDiv.appendChild(article);
+                            article.appendChild(displayTextOfArticle);
+            
+                            // to create "Read the whole post" button
+                            var readWhole = document.createElement("a");
+                            readWhole.href = "#";
+                            readWhole.className = "readWholePost";
+                            var readButton = document.createTextNode("Click here to read it...");
+                            readWhole.appendChild(readButton);
+                            artBlockDiv.appendChild(readWhole);
+            
+                            //create title and "read whole post" button's click event
+                            //title
+                            displayTitleOfArticle.onclick = (function(){ //now it passes the current and correct id of the button
+                                var currentId = obj["id"];
+                                return function() { 
+                                    self.displayPost(currentId);
+                                }
+                            })();
+                            //"read whole post" button
+                            readWhole.onclick = (function(){ //now it passes the current and correct id of the button
+                                var currentId = obj["id"];
+                                return function() { 
+                                    self.displayPost(currentId);
+                                }
+                            })();
+            
+                            //date to display for post
+                            var createdDiv = document.createElement("div");
+                            createdDiv.className = "postCreatedAtDiv";
+                            var createdDate = obj["created_at"];
+                            var createdPar = document.createElement("p");
+                            createdPar.className = "postCreatedAt";
+                            var createdText = document.createTextNode(createdDate.split(" ")[0]);
+                            createdPar.appendChild(createdText);
+                            createdDiv.appendChild(createdPar);
+                            artBlockDiv.appendChild(createdDiv);
+                        }
+                    }
+                }
+            });
         }
-    });*/
+    }
 });

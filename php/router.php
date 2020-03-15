@@ -579,6 +579,30 @@ switch ($_SERVER["REQUEST_METHOD"]) {
             }
         }
         /////
+
+        /////// SEARCHED POSTS
+        // search_posts
+        if(array_key_exists("search_posts", $_POST)){
+            //var_dump($_SESSION);
+            $conn = mysqli_connect("localhost", "root", "doingprod2jes2z");
+
+            if(!$conn){
+                echo "Error while connecting to the database.";
+            }
+            if(!mysqli_select_db($conn, "inprodatabase")){
+                echo "Database not selected.";
+            }
+
+            if(isset($_POST["search_posts"])){
+                $search_posts_words = $_POST["search_posts"];
+            }
+            $matching_word = '"[[:<:]]' . $search_posts_words . '[[:>:]]"';
+            $getPosts = "SELECT * FROM post WHERE title RLIKE " . $matching_word . " OR post_text RLIKE " . $matching_word . " OR labels RLIKE " . $matching_word;
+            $result = mysqli_query($conn, $getPosts) or trigger_error("Query Failed! SQL: $getPosts - Error: ".mysqli_error($conn), E_USER_ERROR);
+            $json = mysqli_fetch_all($result, MYSQLI_ASSOC);
+            echo json_encode($json);
+        }
+        /////
         
         break;
     default:

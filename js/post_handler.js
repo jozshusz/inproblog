@@ -345,8 +345,6 @@ function newComment(id, postId){
         newCommentButton.innerHTML = "Send";
         commentDiv.appendChild(newCommentButton);
 
-        //console.log("í3");
-
         newCommentButton.onclick = function(){
             var commentText = newCommentArea.innerHTML;
             console.log(commentText);

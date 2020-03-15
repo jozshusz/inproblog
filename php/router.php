@@ -530,6 +530,55 @@ switch ($_SERVER["REQUEST_METHOD"]) {
             }
         }
         /////
+
+        ///// LOGOUT
+        // cookie_logout, logout_user
+        //security
+        if(isset($_SESSION["username"]) && isset($_SESSION["token"]) 
+            && isset($_COOKIE["token"]) && isset($_POST["cookie_logout"])  && isset($_SESSION["user_id"])
+            && isset($_POST["logout_user"])){
+            if($_SESSION["token"] == $_COOKIE["token"] && $_POST["cookie_logout"] == $_COOKIE["token"]){
+                if(array_key_exists("cookie_logout", $_POST) && array_key_exists("logout_user", $_POST)){
+                    header("Content-Type: text/html; charset=utf-8");
+                
+                    $conn = mysqli_connect("localhost", "root", "doingprod2jes2z");
+                
+                    if(!$conn){
+                        echo "Error while connecting to the database.";
+                    }
+                    if(!mysqli_select_db($conn, "inprodatabase")){
+                        echo "Database not selected.";
+                    }
+
+                    $user_id = $_SESSION["user_id"];
+        
+                    // delete and unset sessions
+                    session_unset();
+                    session_destroy();
+
+                    // delete cookies
+                    if (isset($_COOKIE["token"])) {
+                        unset($_COOKIE["token"]); 
+                        setcookie("token", null, -1, "/"); 
+                    }
+
+                    if (isset($_COOKIE["username"])) {
+                        unset($_COOKIE["username"]); 
+                        setcookie("username", null, -1, "/"); 
+                    }
+
+                    // delete user token row
+                    $sql = "DELETE FROM user_token WHERE user_id=" . $user_id;
+        
+                    if(!mysqli_query($conn, $sql)){
+                        echo "Could not delete the user token.";
+                    }else{
+                        echo json_encode("User is logged out.");
+                    }
+                } 
+            }
+        }
+        /////
         
         break;
     default:

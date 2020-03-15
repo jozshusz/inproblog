@@ -589,3 +589,9 @@ span.psw {
 .loadedCommentUsername{
   margin-top: 5px;
 }
+
+#logoutMenuItemId{
+  float: right;
+  border-right: none;
+  border-left: 1px solid #bbb;
+}

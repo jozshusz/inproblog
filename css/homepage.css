@@ -61,7 +61,7 @@ html{
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-  font-family: "apercu",sans-serif;;
+  font-family: "apercu",sans-serif;
 }
 
 .menuNames:hover{
@@ -74,7 +74,7 @@ html{
 
 .homeIntro{
   color: black;
-  font-family: "apercu",sans-serif;;
+  font-family: "apercu",sans-serif;
   text-align: center;
   font-weight: bold;
 }
@@ -92,7 +92,7 @@ html{
 
 .articleStyle *{
   grid-column: 2 / 3;
-  font-family: "apercu",sans-serif;;
+  font-family: "apercu",sans-serif;
 }
 
 .row:after {
@@ -113,7 +113,7 @@ html{
 }
 
 .artBlock {
-  background-color: #DEF2F1 !important;;
+  background-color: #DEF2F1 !important;
   padding: 10px;
   margin-top: 20px;
   overflow:hidden;
@@ -186,7 +186,7 @@ html{
   height: 60px;
   resize: none;
   font-size: 30px;
-  font-family: "apercu",sans-serif;;
+  font-family: "apercu",sans-serif;
   outline:0px !important;
   -webkit-appearance:none;
   box-shadow: none !important;
@@ -200,7 +200,7 @@ html{
   height: 500px;
   resize: none;
   font-size: 18px;
-  font-family: "apercu",sans-serif;;
+  font-family: "apercu",sans-serif;
   background-color: #c5e8d3;
   outline:0px !important;
   -webkit-appearance:none;
@@ -243,7 +243,7 @@ html{
   height: 400px;
   resize: none;
   font-size: 18px;
-  font-family: "apercu",sans-serif;;
+  font-family: "apercu",sans-serif;
   background-color: white;
   outline:0px !important;
   -webkit-appearance:none;
@@ -259,7 +259,7 @@ html{
   height: 30px;
   resize: none;
   font-size: 18px;
-  font-family: "apercu",sans-serif;;
+  font-family: "apercu",sans-serif;
   outline:0px !important;
   -webkit-appearance:none;
   box-shadow: none !important;
@@ -622,4 +622,61 @@ span.psw {
 .tooBigImage{
   width: 20%;
   border-radius: 50%;
+}
+
+/* About me Page */
+
+.aboutMeContent{
+  color: black;
+  font-family: "apercu",sans-serif;
+  margin-top: 5%;
+  padding-right: 5%;
+  padding-left: 5%;
+}
+
+.whoAmIWhole{
+  overflow: auto;
+}
+
+.avatarAboutMe{
+  border-radius: 5% !important;
+  width: 40%;
+  float: right;
+}
+
+.whoAmIText{
+  color: black;
+  font-family: "apercu",sans-serif;
+  float: left;
+}
+
+.titleContent{
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center !important;
+}
+
+.aboutMePar{
+  font-size: 24px;
+}
+
+.mySkillsWhole{
+  margin-top: 5%;
+  overflow: auto;
+}
+
+.skillsImgAboutMe{
+  border-radius: 5% !important;
+  width: 40%;
+  float: left;
+}
+
+.mySkillsPar{
+  font-size: 24px;
+}
+
+.mySkillsText{
+  color: black;
+  font-family: "apercu",sans-serif;
+  float: right;
 }

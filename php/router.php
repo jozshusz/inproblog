@@ -159,6 +159,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
                         
                         if(!mysqli_query($conn, $sql)){
                             echo "Cannot insert to database.";
+                            trigger_error("Query Failed! SQL: $sql - Error: ".mysqli_error($conn), E_USER_ERROR);
+                            die();
                         }else{
                             echo "Post inserted";
                         }
@@ -330,7 +332,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
                     // if valid_to, check token everytime to validate if username logged in
                     $token = uniqid();
                     $today = date("Y-m-d H:i:s");
-                    $valid_to = date("Y-m-d H:i:s", strtotime('+1000 seconds')); //valid for 20 minutes; now 10 sec
+                    $valid_to = date("Y-m-d H:i:s", strtotime('+1200 seconds')); //valid for 20 minutes; 
                     $username = $check_data[0]["username"];
                     $user_id = $check_data[0]["id"];
                     //insert to user_token db
@@ -348,12 +350,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
                     //cookie create
                     $cookie_name = "token";
                     $cookie_value = $token;
-                    setcookie($cookie_name, $cookie_value, time() + (1000), "/");//cookie valid for 20 minutes; now 10 sec
+                    setcookie($cookie_name, $cookie_value, time() + (1200), "/");//cookie valid for 20 minutes; 
                     
                     //cookie create
                     $cookie_nameUser = "username";
                     $cookie_valueUser = $_SESSION["username"];
-                    setcookie($cookie_nameUser, $cookie_valueUser, time() + (1000), "/");//cookie valid for 20 minutes; now 10 sec
+                    setcookie($cookie_nameUser, $cookie_valueUser, time() + (1200), "/");//cookie valid for 20 minutes; 
                     
                     $check_data["token"] = $token;
                     $check_data["valid_to"] = $valid_to;
